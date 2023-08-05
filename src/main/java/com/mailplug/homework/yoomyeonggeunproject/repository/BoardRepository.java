@@ -1,16 +1,18 @@
 package com.mailplug.homework.yoomyeonggeunproject.repository;
 
-import com.mailplug.homework.yoomyeonggeunproject.dto.BoardDto;
+import com.mailplug.homework.yoomyeonggeunproject.dto.ResponseBoardDto;
 import com.mailplug.homework.yoomyeonggeunproject.entity.Board;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.awt.print.Pageable;
+import java.util.List;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
 
     //전체조회
-//    public BoardDto findAll(Pageable pageable);
+    Page<Board> findAll(Pageable pageable);
 
     //단건조회
-    public BoardDto findByName(String keyword);
+    public List<Board> findByName(String keyword);
 }

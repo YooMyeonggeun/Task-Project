@@ -1,14 +1,20 @@
 package com.mailplug.homework.yoomyeonggeunproject.service;
 
-import com.mailplug.homework.yoomyeonggeunproject.dto.BoardDto;
-import com.mailplug.homework.yoomyeonggeunproject.dto.ResponseDto;
+import com.mailplug.homework.yoomyeonggeunproject.dto.RequestBoardDto;
+import com.mailplug.homework.yoomyeonggeunproject.dto.ResponseBoardDto;
 import com.mailplug.homework.yoomyeonggeunproject.entity.Board;
+import com.mailplug.homework.yoomyeonggeunproject.exception.ErrorException;
+import com.mailplug.homework.yoomyeonggeunproject.exception.ExceptionEnum;
 import com.mailplug.homework.yoomyeonggeunproject.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.awt.print.Pageable;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -20,40 +26,54 @@ public class BoardService {
 
     //전체조회
     @Transactional(readOnly = true)
-    public void allsearch(Pageable pageable) {
-        boardRepository.findAll();
+    public List<ResponseBoardDto> allsearch(Pageable pageable) {
+       return boardRepository.findAll(pageable).stream().map(ResponseBoardDto::new)
+                .collect(Collectors.toList());
     }
 
     //단건조회
     @Transactional(readOnly = true)
-    public void onesearch(String keyword) {
-        boardRepository.findByName(keyword);
+    public List<ResponseBoardDto> onesearch(String keyword) {
+       return boardRepository.findByName(keyword).stream().map(ResponseBoardDto::new)
+               .collect(Collectors.toList());
     }
 
     //게시글 등록
-    public ResponseDto<Board> register(BoardDto boardDto) {
-        System.out.println("등록 : "+boardDto.toString());
-        boardRepository.save(Board.builder().boardDto(boardDto).build());
-        return ResponseDto.setSuccess("등록에 성공하였습니다", null);
+    public ResponseEntity<String> register(RequestBoardDto boardDto) {
+        boardRepository.save(Board.builder().requestBoardDto(boardDto).build());
+        return ResponseEntity.status(HttpStatus.OK).body("게시글이 등록되었습니다");
     }
 
 
     // 게시글 수정
-    public ResponseDto<Board> update(String userid, String title, String contant) {
-        if (userid.equals("")) {
-            return null;
+    public ResponseEntity<String> update(Long id, RequestBoardDto boardDto) {
+        // 수정할 게시글이 존재하는지 확인
+        Board board = boardRepository.findById(id).orElseThrow(
+                () -> new ErrorException(ExceptionEnum.UPDATE_NOT_FOUND)
+        );
+
+        // 수정권한 체크
+        if (board.getUserid().equals(boardDto.getUserid())) {
+            board.BoardUpdate(boardDto);
+            return  ResponseEntity.status(HttpStatus.OK).body("수정이 완료되었습니다");
         } else {
-            return ResponseDto.setFail("본인이 작성한 게시글만 수정할 수 있습니다", null);
+            throw new ErrorException(ExceptionEnum.UPDATE_Authorization_NOT_FOUND);
         }
     }
 
 
     //게시글 삭제
-    public ResponseDto<Board> delete(String id) {
-        if (id.equals("")) {
-            return null;
+    public ResponseEntity<String> delete(Long id, RequestBoardDto boardDto) {
+        // 삭제할 게시글이 존재하는지 확인
+        Board board = boardRepository.findById(id).orElseThrow(
+                () -> new ErrorException(ExceptionEnum.UPDATE_NOT_FOUND)
+        );
+
+        // 삭제권한 체크
+        if (board.getUserid().equals(boardDto.getUserid())) {
+            return  ResponseEntity.status(HttpStatus.OK).body("삭제가 완료되었습니다");
         } else {
-            return ResponseDto.setFail("본인이 작성한 게시글만 수정할 수 있습니다", null);
+            throw new ErrorException(ExceptionEnum.DELETE_Authorization_NOT_FOUND);
         }
     }
 }

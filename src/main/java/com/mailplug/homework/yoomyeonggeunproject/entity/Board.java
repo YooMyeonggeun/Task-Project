@@ -1,12 +1,14 @@
 package com.mailplug.homework.yoomyeonggeunproject.entity;
 
-import com.mailplug.homework.yoomyeonggeunproject.dto.BoardDto;
+import com.mailplug.homework.yoomyeonggeunproject.dto.RequestBoardDto;
 import jakarta.persistence.*;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor
+@Getter
 public class Board extends Timestamped{
 
     @Id
@@ -24,9 +26,14 @@ public class Board extends Timestamped{
 
 
     @Builder
-    public Board(BoardDto boardDto){
-        this.userid = boardDto.getUserid();
-        this.name = boardDto.getName();
-        this.contant = boardDto.getContant();
+    public Board(RequestBoardDto requestBoardDto){
+        this.userid = requestBoardDto.getUserid();
+        this.name = requestBoardDto.getName();
+        this.contant = requestBoardDto.getContant();
+    }
+
+    public void BoardUpdate(RequestBoardDto requestBoardDto){
+        this.name = requestBoardDto.getName();
+        this.contant = requestBoardDto.getContant();
     }
 }
