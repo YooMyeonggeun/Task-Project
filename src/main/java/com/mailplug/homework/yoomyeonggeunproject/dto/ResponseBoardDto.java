@@ -18,6 +18,7 @@ public class ResponseBoardDto {
     private LocalDateTime update_at; // 수정 날짜
 
     public ResponseBoardDto(Board board){
+        this.id = board.getId();
         this.userid = board.getUserid();
         this.name = board.getName();
         this.contant = board.getContant();
