@@ -16,4 +16,8 @@ public class ResponseDto<T> {
     public static <T> ResponseDto<T> setSuccess(String message, T data) {
         return ResponseDto.set(HttpStatus.OK, message, data);
     }
+
+    public static <T> ResponseDto<T> setFail(String message, T data) {
+        return ResponseDto.set(HttpStatus.NOT_FOUND, message, data);
+    }
 }

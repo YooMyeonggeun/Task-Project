@@ -29,22 +29,23 @@ public class MainController {
         return taskService.onesearch(keyword, pageable);
     }
 
-    //등록
+    //게시글 등록
     @PostMapping("/register")
-    public ResponseEntity<String> register(RequestBoardDto boardDto) {
-        return taskService.register(boardDto);
+    public ResponseDto<String> register(@RequestHeader("X-USERID") String userid, RequestBoardDto boardDto) {
+        return taskService.register(userid, boardDto);
     }
 
-    //수정
+    //게시글 수정
     @PutMapping("/update")
-    public ResponseDto<String> update(Long id, RequestBoardDto boardDto) {
-        return taskService.update(id, boardDto);
+    public ResponseDto<String> update(@RequestHeader("X-USERID") String userid, Long id, RequestBoardDto boardDto) {
+        return taskService.update(userid, id, boardDto);
     }
 
-    //삭제
+    //게시글 삭제
     @DeleteMapping("/delete")
-    public ResponseEntity<String> delete(Long id, String userid) {
+    public ResponseDto<String> delete(Long id, @RequestHeader("X-USERID") String userid) {
         return taskService.delete(id, userid);
     }
+
 
 }

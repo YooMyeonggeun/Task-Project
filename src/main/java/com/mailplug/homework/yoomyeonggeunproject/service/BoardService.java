@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,41 +41,49 @@ public class BoardService {
     }
 
     //게시글 등록
-    public ResponseEntity<String> register(RequestBoardDto boardDto) {
-        boardRepository.save(Board.builder().requestBoardDto(boardDto).build());
-        return ResponseEntity.status(HttpStatus.OK).body("게시글이 등록되었습니다");
+    public ResponseDto<String> register(String userid, RequestBoardDto boardDto) {
+        boardDto.setUserid(userid);
+        if(boardDto.getName().length() > 100){
+            return ResponseDto.setFail("제목이 100글자를 넘었습니다",null);
+        }else{
+            boardRepository.save(Board.builder().requestBoardDto(boardDto).build());
+            return ResponseDto.setSuccess("게시글이 등록되었습니다", null);
+        }
+
     }
 
 
     // 게시글 수정
-    public ResponseDto<String> update(Long id, RequestBoardDto boardDto) {
+    public ResponseDto<String> update(String userid, Long id, RequestBoardDto boardDto) {
         // 수정할 게시글이 존재하는지 확인
-        Board board = boardRepository.findById(id).orElseThrow(
-                () -> new ErrorException(ExceptionEnum.UPDATE_NOT_FOUND)
-        );
+        Optional<Board> board = boardRepository.findById(id);
+        if(!board.isPresent()){
+            return  ResponseDto.setFail(ExceptionEnum.UPDATE_NOT_FOUND.getMessage(), null);
+        }
         // 수정권한 체크
-        if (board.getUserid().equals(boardDto.getUserid())) {
-            board.BoardUpdate(boardDto);
+        if (board.get().getUserid().equals(userid)) {
+            boardDto.setUserid(userid);
+            board.get().BoardUpdate(boardDto);
             return  ResponseDto.setSuccess("수정이 완료되었습니다", null);
         } else {
-            throw new ErrorException(ExceptionEnum.UPDATE_Authorization_NOT_FOUND);
+            return ResponseDto.setFail(ExceptionEnum.UPDATE_Authorization_NOT_FOUND.getMessage(), null);
         }
     }
 
 
     //게시글 삭제
-    public ResponseEntity<String> delete(Long id, String userid) {
+    public ResponseDto<String> delete(Long id, String userid) {
         // 삭제할 게시글이 존재하는지 확인
-        Board board = boardRepository.findById(id).orElseThrow(
-                () -> new ErrorException(ExceptionEnum.UPDATE_NOT_FOUND)
-        );
-
+        Optional<Board> board = boardRepository.findById(id);
+        if(!board.isPresent()){
+            return ResponseDto.setFail(ExceptionEnum.DELETE_NOT_FOUND.getMessage(), null);
+        }
         // 삭제권한 체크
-        if (board.getUserid().equals(userid)) {
+        if (board.get().getUserid().equals(userid)) {
             boardRepository.deleteById(id);
-            return  ResponseEntity.status(HttpStatus.OK).body("삭제가 완료되었습니다");
+            return  ResponseDto.setSuccess("삭제가 완료되었습니다", null);
         } else {
-            throw new ErrorException(ExceptionEnum.DELETE_Authorization_NOT_FOUND);
+            return ResponseDto.setFail(ExceptionEnum.DELETE_Authorization_NOT_FOUND.getMessage(), null);
         }
     }
 }
