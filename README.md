@@ -29,7 +29,7 @@ zip 파일 압축해제 하시고 PostMan으로 신호를 보내시면 됩니다
 
 
 ## 게시판 등록
-<img width="667" alt="image" src="https://github.com/YooMyeonggeun/Task-Project/assets/129927506/93e443aa-ca82-4ed7-8274-62b96fd7aac4">
+<img width="668" alt="image" src="https://github.com/YooMyeonggeun/Task-Project/assets/129927506/f7079cb1-6ba2-4550-8e76-5958e07e29e0">
 <img width="668" alt="image" src="https://github.com/YooMyeonggeun/Task-Project/assets/129927506/00ecce23-29c7-4da3-9bd9-a0a7e0cd9a0a">
 
 
