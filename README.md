@@ -1,10 +1,5 @@
 # 프로젝트 구조 소개
-
-
-# 구현 방법에 대한 설명
-1. 리눅스 서버에 Docker를 설치하고 docker 컨테이너에  mysql를 띄움니다 
-2. 
-
+JPA와 Docker를 이용하여 게시판  CRUD 기능 구현
 
 # 개발 환경 & 아키텍쳐
 spring boot 3.1.2
