@@ -2,12 +2,18 @@
 
 
 # 구현 방법에 대한 설명
-Docker에 Mysql를 구동시키고 
+1. 리눅스 서버에 Docker를 설치하고 docker 컨테이너에  mysql를 띄움니다 
+2. 
 
-# 개발 환경
+
+# 개발 환경 & 아키텍쳐
 spring boot 3.1.2
 mysql 
 docker 
+
+<img width="611" alt="image" src="https://github.com/YooMyeonggeun/Task-Project/assets/129927506/65e33096-8739-4668-b7e4-ff9259565664">
+
+mysql를 docker 컨테이너 안에 띄워 놓고 spring boot에서 요청해서 값을 가져오는 방식으로 아키텍처를 구현하였습니다
 
 
 
