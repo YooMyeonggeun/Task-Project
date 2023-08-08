@@ -36,4 +36,4 @@ zip 파일 압축해제 하시고 PostMan으로 신호를 보내시면 됩니다
 <img width="668" alt="image" src="https://github.com/YooMyeonggeun/Task-Project/assets/129927506/c716df27-f534-444a-8a1f-a3ac36deca56">
 <img width="674" alt="image" src="https://github.com/YooMyeonggeun/Task-Project/assets/129927506/fb4193a2-918b-480e-b4e5-3b0c0e2299e7">
 
-## 기타 필요한 부가설명이 있다면 작성해주세요.
+
