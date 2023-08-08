@@ -29,24 +29,17 @@ zip 파일 압축해제 하시고 PostMan으로 신호를 보내시면 됩니다
 
 
 ## 게시판 등록
-
-
 <img width="1152" alt="등록" src="https://github.com/YooMyeonggeun/Task-Project/assets/129927506/a0771e6b-63d9-4c65-a319-ab0468b3d45c">
-
-
-
-
-<img width="1152" alt="등록" src="https://github.com/YooMyeonggeun/Task-Project/assets/129927506/d2d1b190-ea33-4437-8480-a33fd9e4f86c">
 <img width="668" alt="image" src="https://github.com/YooMyeonggeun/Task-Project/assets/129927506/00ecce23-29c7-4da3-9bd9-a0a7e0cd9a0a">
 
 
 ## 게시판 수정
-<img width="669" alt="image" src="https://github.com/YooMyeonggeun/Task-Project/assets/129927506/581566ce-3b62-43ac-a79e-694c30091b98">
+<img width="1152" alt="등록" src="https://github.com/YooMyeonggeun/Task-Project/assets/129927506/a0771e6b-63d9-4c65-a319-ab0468b3d45c">
 <img width="677" alt="image" src="https://github.com/YooMyeonggeun/Task-Project/assets/129927506/d62add70-4d92-4637-9bf9-ea9175f81337">
 
 
 ## 게시판 삭제
-<img width="668" alt="image" src="https://github.com/YooMyeonggeun/Task-Project/assets/129927506/c716df27-f534-444a-8a1f-a3ac36deca56">
+<img width="1152" alt="등록" src="https://github.com/YooMyeonggeun/Task-Project/assets/129927506/a0771e6b-63d9-4c65-a319-ab0468b3d45c">
 <img width="674" alt="image" src="https://github.com/YooMyeonggeun/Task-Project/assets/129927506/fb4193a2-918b-480e-b4e5-3b0c0e2299e7">
 
 
